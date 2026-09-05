@@ -1,0 +1,348 @@
+{
+  "users": [
+    {
+      "id": "usr_admin",
+      "email": "admin@cse.dept.edu",
+      "name": "Department Administrator",
+      "role": "admin",
+      "bookmarks": [
+        "paper_cse_1",
+        "paper_cse_4"
+      ],
+      "isBlocked": false,
+      "downloads": [
+        {
+          "paperId": "paper_cse_1",
+          "downloadedAt": "2026-09-02T04:22:49.807Z",
+          "orderId": "ORD-93021",
+          "price": 0
+        }
+      ],
+      "createdAt": "2026-09-02T04:22:49.807Z",
+      "passwordHash": "719f880e2e25edaf4c308bb0059236ead17c1356cf06138fb012b0509a5f1eb7a0965d2b1e3b1da89fa1566d5d560c966e615cccd869f028cbd12093bcf82d53"
+    },
+    {
+      "id": "usr_demo",
+      "email": "student@cse.dept.edu",
+      "name": "Tanvir Ahmed",
+      "role": "student",
+      "bookmarks": [
+        "paper_cse_2"
+      ],
+      "isBlocked": false,
+      "downloads": [
+        {
+          "paperId": "paper_cse_1",
+          "downloadedAt": "2026-09-01T04:22:49.807Z",
+          "orderId": "ORD-12344",
+          "price": 0
+        }
+      ],
+      "createdAt": "2026-09-02T04:22:49.807Z",
+      "passwordHash": "20a8c633f6f7ebb817148e66e33dcd3f01526200c4376e172694f31161be74877676aa81f550721bb0df8c9d54a887dc5e28d1f32e57e1e1cdf720325060a84d"
+    }
+  ],
+  "papers": [
+    {
+      "id": "paper_cse_1",
+      "title": "BanglaBERT-OCR: Transformer-based Document Text Extraction from Degraded Scanned Bengali Archives",
+      "authors": [
+        "Tanvir Ahmed (PUST Roll: 190601)",
+        "Sumaiya Rahman (PUST Roll: 190645)"
+      ],
+      "supervisor": "Dr. Md. Farhad Hossain",
+      "coSupervisor": "Prof. Dr. Mohammad Tariqul Islam",
+      "publicationType": "Undergraduate Thesis",
+      "year": 2026,
+      "pages": 64,
+      "views": 891,
+      "likes": 142,
+      "downloadsCount": 88,
+      "categories": [
+        "Computer Vision & Bangla NLP",
+        "Artificial Intelligence & ML"
+      ],
+      "keywords": [
+        "Bangla OCR",
+        "Transformer",
+        "PUST CSE",
+        "Document Analysis",
+        "Bengali NLP",
+        "Scanned Documents"
+      ],
+      "summary": "This undergraduate thesis submitted to the Department of Computer Science & Engineering, Pabna University of Science and Technology (PUST), proposes a custom vision-language transformer architecture fine-tuned for extracting degraded, low-resolution Bengali historical and administrative manuscripts. Achieves 94.2% character accuracy on complex conjunctive characters (Juktakkhor).",
+      "fileUrl": "/sample-papers/banglabert_ocr_thesis.pdf",
+      "coverImage": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&auto=format&fit=crop&q=80",
+      "status": "Active",
+      "price": 0,
+      "createdAt": "2026-02-15T09:00:00.000Z"
+    },
+    {
+      "id": "paper_cse_2",
+      "title": "Lightweight Edge-AI Model for Real-Time Traffic Congestion Prediction on Regional Highways",
+      "authors": [
+        "Mahmudul Hasan (PUST Roll: 200612)",
+        "Farzana Akter (PUST Roll: 200634)"
+      ],
+      "supervisor": "Prof. Dr. Mohammad Tariqul Islam",
+      "publicationType": "Conference Paper",
+      "year": 2025,
+      "pages": 8,
+      "views": 1240,
+      "likes": 215,
+      "downloadsCount": 164,
+      "categories": [
+        "Artificial Intelligence & ML",
+        "HCI & Embedded Systems"
+      ],
+      "keywords": [
+        "Edge AI",
+        "YOLOv8",
+        "PUST CSE",
+        "Intelligent Transportation",
+        "Computer Vision",
+        "Real-time"
+      ],
+      "summary": "Presented from CSE Dept., Pabna University of Science and Technology. Proposes a quantized neural network model running on Raspberry Pi and NVIDIA Jetson edge nodes to predict highway bottle-neck congestions 15 minutes in advance using CCTV feeds.",
+      "fileUrl": "/sample-papers/edge_traffic_dhaka_conf.pdf",
+      "coverImage": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=600&auto=format&fit=crop&q=80",
+      "status": "Active",
+      "price": 0,
+      "createdAt": "2025-11-20T11:30:00.000Z"
+    },
+    {
+      "id": "paper_cse_3",
+      "title": "Zero-Knowledge Authentication Protocol for Decentralized Student Academic Credential Verification",
+      "authors": [
+        "Shakil Hossain (PUST MSc 2024)",
+        "Nafisa Anjum (PUST Roll: 190622)"
+      ],
+      "supervisor": "Prof. Dr. Kamrul Hasan",
+      "publicationType": "Master's Thesis",
+      "year": 2025,
+      "pages": 82,
+      "views": 740,
+      "likes": 160,
+      "downloadsCount": 95,
+      "categories": [
+        "Cybersecurity & Networks",
+        "Software Engineering & Cloud"
+      ],
+      "keywords": [
+        "Zero-Knowledge Proofs",
+        "zk-SNARKs",
+        "Academic Credentials",
+        "PUST Archive",
+        "Blockchain",
+        "Identity Privacy"
+      ],
+      "summary": "Master's thesis presenting a privacy-preserving zk-SNARK protocol that allows university students to prove GPA thresholds and graduation credentials to employers without revealing complete transcript history or sensitive PII.",
+      "fileUrl": "/sample-papers/zk_credential_thesis.pdf",
+      "coverImage": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&auto=format&fit=crop&q=80",
+      "status": "Active",
+      "price": 0,
+      "createdAt": "2025-08-10T14:15:00.000Z"
+    },
+    {
+      "id": "paper_cse_4",
+      "title": "Deep Attention ResNet for Automated Detection of Diabetic Retinopathy from Retinal Fundus Scans",
+      "authors": [
+        "Dr. Md. Farhad Hossain",
+        "Abrar Al-Mamun (PUST Roll: 180605)",
+        "Sadia Karim (PUST Roll: 180628)"
+      ],
+      "supervisor": "Dr. Md. Farhad Hossain",
+      "publicationType": "Journal Article",
+      "year": 2025,
+      "pages": 14,
+      "views": 1890,
+      "likes": 388,
+      "downloadsCount": 240,
+      "categories": [
+        "Data Science & Bioinformatics",
+        "Artificial Intelligence & ML"
+      ],
+      "keywords": [
+        "Diabetic Retinopathy",
+        "Medical Imaging",
+        "ResNet",
+        "Attention Mechanism",
+        "Deep Learning",
+        "Fundus"
+      ],
+      "summary": "Published in Journal of Medical Systems & Informatics. Implements dual-attention residual networks for multi-grade classification of diabetic retinopathy, evaluated across 12,000 anonymized hospital fundus images with 97.8% AUC.",
+      "fileUrl": "/sample-papers/diabetic_retinopathy_journal.pdf",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&auto=format&fit=crop&q=80",
+      "status": "Active",
+      "price": 0,
+      "createdAt": "2025-05-14T08:45:00.000Z"
+    },
+    {
+      "id": "paper_cse_5",
+      "title": "Microservice Fault Injection & Self-Healing Resilience in High-Load Kubernetes Clusters",
+      "authors": [
+        "Rafiul Islam (Roll: 1904033)",
+        "Zubair Al Mahmud"
+      ],
+      "supervisor": "Prof. Dr. Mohammad Tariqul Islam",
+      "publicationType": "Undergraduate Thesis",
+      "year": 2024,
+      "pages": 58,
+      "views": 610,
+      "likes": 95,
+      "downloadsCount": 72,
+      "categories": [
+        "Software Engineering & Cloud",
+        "Cybersecurity & Networks"
+      ],
+      "keywords": [
+        "Kubernetes",
+        "Microservices",
+        "Chaos Engineering",
+        "Self-Healing",
+        "Cloud Systems",
+        "DevOps"
+      ],
+      "summary": "Undergraduate thesis examining automated chaos engineering tests and predictive container auto-scaling under synthetic DDoS and memory leak attacks in distributed microservice topologies.",
+      "fileUrl": "/sample-papers/kubernetes_resilience_thesis.pdf",
+      "coverImage": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80",
+      "status": "Active",
+      "price": 0,
+      "createdAt": "2024-12-05T16:20:00.000Z"
+    },
+    {
+      "id": "paper_cse_6",
+      "title": "Bangla Abstractive Text Summarization using Multi-Head Cross-Lingual Pretrained Encoders",
+      "authors": [
+        "Nayeem Rahman (Roll: 2004019)",
+        "Dr. Farhana Sarker"
+      ],
+      "supervisor": "Dr. Farhana Sarker",
+      "publicationType": "Conference Paper",
+      "year": 2024,
+      "pages": 6,
+      "views": 940,
+      "likes": 175,
+      "downloadsCount": 110,
+      "categories": [
+        "Computer Vision & Bangla NLP",
+        "Artificial Intelligence & ML"
+      ],
+      "keywords": [
+        "Bangla NLP",
+        "Text Summarization",
+        "mBART",
+        "BanglaT5",
+        "Sequence-to-Sequence"
+      ],
+      "summary": "Presented at Asian Conference on Natural Language Processing (ACNLP). Evaluates BanglaT5 and mBART fine-tuning on a novel benchmark dataset of 50,000 Bengali national news articles.",
+      "fileUrl": "/sample-papers/bangla_summarization_conf.pdf",
+      "coverImage": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&auto=format&fit=crop&q=80",
+      "status": "Active",
+      "price": 0,
+      "createdAt": "2024-09-18T10:00:00.000Z"
+    }
+  ],
+  "topics": [
+    {
+      "id": "topic_ai_ml",
+      "name": "Artificial Intelligence & ML",
+      "description": "Deep learning, NLP, computer vision, reinforcement learning, and LLM fine-tuning.",
+      "paperCount": 4
+    },
+    {
+      "id": "topic_se_systems",
+      "name": "Software Engineering & Cloud",
+      "description": "Distributed architectures, microservices, DevOps, automated code testing, and cloud performance.",
+      "paperCount": 2
+    },
+    {
+      "id": "topic_sec_net",
+      "name": "Cybersecurity & Networks",
+      "description": "Network security protocols, cryptographic zero-knowledge systems, malware classification, and IoT security.",
+      "paperCount": 2
+    },
+    {
+      "id": "topic_cv_nlp",
+      "name": "Computer Vision & Bangla NLP",
+      "description": "Bengali natural language understanding, OCR document scanning, transformer models, and video analytics.",
+      "paperCount": 2
+    },
+    {
+      "id": "topic_data_bio",
+      "name": "Data Science & Bioinformatics",
+      "description": "Computational genomics, biomedical signal processing, predictive analytics, and algorithmic modeling.",
+      "paperCount": 1
+    },
+    {
+      "id": "topic_hci_iot",
+      "name": "HCI & Embedded Systems",
+      "description": "Assistive robotics, sensor networks, smart agricultural IoT, and human-computer interaction.",
+      "paperCount": 1
+    }
+  ],
+  "researchers": [
+    {
+      "id": "res_tariq",
+      "name": "Prof. Dr. Mohammad Tariqul Islam",
+      "affiliation": "Department of Computer Science & Engineering",
+      "position": "Professor & Department Head",
+      "bio": "Specializing in Distributed Systems, High-Performance Computing, and Cloud Infrastructure.",
+      "email": "tariqul@cse.dept.edu",
+      "website": "https://cse.dept.edu/faculty/tariqul",
+      "profilePhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "paperCount": 0
+    },
+    {
+      "id": "res_farhana",
+      "name": "Dr. Farhana Sarker",
+      "affiliation": "Department of Computer Science & Engineering",
+      "position": "Associate Professor",
+      "bio": "Focuses on Deep Learning, Bengali Natural Language Processing (NLP), and Medical Image Segmentation.",
+      "email": "farhana.s@cse.dept.edu",
+      "website": "https://cse.dept.edu/faculty/farhana",
+      "profilePhoto": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
+      "paperCount": 2
+    },
+    {
+      "id": "res_kamrul",
+      "name": "Prof. Dr. Kamrul Hasan",
+      "affiliation": "Department of Computer Science & Engineering",
+      "position": "Professor of Cybersecurity",
+      "bio": "Pioneering research in Cryptographic Protocols, Zero-Knowledge Proofs, Network Intrusion Detection, and Blockchain.",
+      "email": "kamrul.hasan@cse.dept.edu",
+      "website": "https://cse.dept.edu/faculty/kamrul",
+      "profilePhoto": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&auto=format&fit=crop&q=80",
+      "paperCount": 0
+    }
+  ],
+  "tickets": [],
+  "contactMessages": [],
+  "faqs": [
+    {
+      "id": "faq_1",
+      "question": "How do CSE students and faculty upload theses or conference papers?",
+      "answer": "Click the 'Upload Thesis / Paper' button at the top of the Library or Home page. Select document type (Undergraduate Thesis, MSc Thesis, Conference Paper, Journal), enter student author names, supervisor name, abstract, keywords, and upload the scanned or digital PDF."
+    },
+    {
+      "id": "faq_2",
+      "question": "How does the search engine match papers?",
+      "answer": "You can search by any keyword matching paper titles, student author names, faculty supervisor names, research tracks/topics, publication types, or abstract keywords instantly."
+    },
+    {
+      "id": "faq_3",
+      "question": "Are scanned thesis PDFs viewable directly in browser?",
+      "answer": "Yes, every paper has an integrated instant PDF preview modal with self-healing PDF generation and one-click direct download."
+    }
+  ],
+  "branding": {
+    "siteName": "Dept of CSE, PUST",
+    "siteTagline": "Research & Thesis Archive",
+    "logoUrl": "/logo.svg",
+    "footerText": "Department of Computer Science & Engineering, Pabna University of Science and Technology (PUST), Pabna-6320, Bangladesh.",
+    "allowRegistration": true,
+    "emailNotifications": true,
+    "themeMode": "light"
+  },
+  "chats": []
+}

@@ -1,0 +1,43 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: research-archive-app:latest
+    container_name: research_archive_app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATA_DIR=/app-data
+      - UPLOAD_DIR=/app-data/uploads
+      - DB_BACKUP_FILE=/app-data/archive-database.json
+      - REQUIRE_MONGODB=true
+      - JWT_SECRET=${JWT_SECRET}
+      - MONGODB_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/research_archive?authSource=admin
+      - ADMIN_DEFAULT_PASSWORD=${ADMIN_DEFAULT_PASSWORD:-}
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    volumes:
+      - "${NAS_APP_DATA_PATH:-./data}:/app-data"
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  mongo:
+    image: ${MONGO_IMAGE:-mongo:7.0}
+    container_name: research_archive_mongo
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=research_archive
+    volumes:
+      - "${NAS_MONGO_DATA_PATH:-./mongo-data}:/data/db"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    # Security: Database port is not exposed to host network; accessed only by app container
