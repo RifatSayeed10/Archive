@@ -292,7 +292,7 @@ export default function App() {
     }
   };
 
-  const currentSiteTitle = siteBranding?.siteName || "Dept of CSE, PUST";
+  const currentSiteTitle = siteBranding?.siteName || "CSE EduDocs";
 
   return (
     <div className="flex min-h-screen flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-200">

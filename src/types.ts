@@ -89,6 +89,7 @@ export interface Paper {
   summary: string; // Abstract
   fileUrl: string; // PDF link or scanned document URL
   researcherId?: string; // Associated faculty ID if any
+  uploaderId?: string; // User ID of student / researcher who submitted
   coverImage?: string;
   status: 'Active' | 'Inactive';
   price: number; // 0 for free

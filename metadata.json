@@ -1,6 +1,6 @@
 {
-  "name": "Dept of CSE, PUST",
-  "description": "Research repository and thesis archive for the Department of Computer Science & Engineering, Pabna University of Science and Technology.",
+  "name": "CSE EduDocs",
+  "description": "Academic repository for research papers, theses, and student projects for Computer Science & Engineering, Pabna University of Science and Technology.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

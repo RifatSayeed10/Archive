@@ -344,8 +344,8 @@ const initialFAQs: FAQItem[] = [
 ];
 
 const initialBranding: SiteBranding = {
-  siteName: "Dept of CSE, PUST",
-  siteTagline: "Research & Thesis Archive",
+  siteName: "CSE EduDocs",
+  siteTagline: "Research Papers, Theses & Student Projects Archive",
   logoUrl: "/logo.svg",
   footerText: "Department of Computer Science & Engineering, Pabna University of Science and Technology (PUST), Pabna-6320, Bangladesh.",
   allowRegistration: true,

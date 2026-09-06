@@ -145,7 +145,10 @@ export const api = {
       method: "DELETE",
       headers: getHeaders(),
     });
-    if (!res.ok) throw new Error("Failed to delete paper");
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: "Failed to delete paper" }));
+      throw new Error(err.error || "Failed to delete paper");
+    }
     return res.json();
   },
 
@@ -437,7 +440,7 @@ export const api = {
     return res.json();
   },
 
-  async updateUserRole(id: string, role: "user" | "editor" | "admin") {
+  async updateUserRole(id: string, role: "student" | "teacher" | "editor" | "admin" | "user") {
     const res = await fetch(`/api/admin/users/${id}/role`, {
       method: "POST",
       headers: getHeaders(),
@@ -576,7 +579,10 @@ export const api = {
       method: "DELETE",
       headers: getHeaders(),
     });
-    if (!res.ok) throw new Error("Failed to delete project");
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: "Failed to delete project" }));
+      throw new Error(err.error || "Failed to delete project");
+    }
     return res.json();
   },
 

@@ -51,6 +51,12 @@ export default function ProjectsView({ currentUser, onNavigateToAuth }: Projects
   const [uploadingImage, setUploadingImage] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  // In-app Deletion Modal State
+  const [projectToDelete, setProjectToDelete] = useState<Project | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+  const [deleteSuccess, setDeleteSuccess] = useState("");
+
   const loadProjects = async () => {
     try {
       setLoading(true);
@@ -227,18 +233,30 @@ export default function ProjectsView({ currentUser, onNavigateToAuth }: Projects
     }
   };
 
-  const handleDeleteProject = async (id: string, e?: React.MouseEvent) => {
+  const handleDeleteProject = (proj: Project, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
-    if (!confirm("Are you sure you want to delete this project?")) return;
+    setProjectToDelete(proj);
+    setDeleteError("");
+  };
 
+  const confirmDeleteProject = async () => {
+    if (!projectToDelete) return;
+    setDeleteLoading(true);
+    setDeleteError("");
     try {
-      await api.deleteProject(id);
-      if (activeProject?.id === id) {
+      await api.deleteProject(projectToDelete.id);
+      if (activeProject?.id === projectToDelete.id) {
         setActiveProject(null);
       }
+      const deletedTitle = projectToDelete.title;
+      setProjectToDelete(null);
+      setDeleteSuccess(`Project "${deletedTitle}" deleted successfully.`);
+      setTimeout(() => setDeleteSuccess(""), 4000);
       loadProjects();
     } catch (err: any) {
-      alert(err.message || "Failed to delete project.");
+      setDeleteError(err.message || "Failed to delete project.");
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -536,6 +554,15 @@ export default function ProjectsView({ currentUser, onNavigateToAuth }: Projects
                           <Eye className="h-3.5 w-3.5" />
                           <span>{proj.views || 0}</span>
                         </span>
+                        {isUserAuthorizedToEdit(proj) && (
+                          <button
+                            onClick={(e) => handleDeleteProject(proj, e)}
+                            className="p-1 rounded text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition cursor-pointer"
+                            title="Delete project"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -577,11 +604,12 @@ export default function ProjectsView({ currentUser, onNavigateToAuth }: Projects
                       <Edit3 className="h-4 w-4" />
                     </button>
                     <button
-                      onClick={() => handleDeleteProject(activeProject.id)}
-                      className="p-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition cursor-pointer"
+                      onClick={() => handleDeleteProject(activeProject)}
+                      className="p-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition cursor-pointer flex items-center gap-1 text-xs font-semibold"
                       title="Delete Project"
                     >
                       <Trash2 className="h-4 w-4" />
+                      <span className="hidden sm:inline">Delete</span>
                     </button>
                   </>
                 )}
@@ -1100,6 +1128,79 @@ export default function ProjectsView({ currentUser, onNavigateToAuth }: Projects
 
             </form>
           </div>
+        </div>
+      )}
+
+      {/* Confirmation Modal for Project Deletion */}
+      {projectToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-900/60 backdrop-blur-xs">
+          <div className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-2xl border border-zinc-200 dark:border-zinc-800 space-y-4">
+            <div className="flex items-start gap-3 text-red-600 dark:text-red-400">
+              <div className="p-2.5 bg-red-100 dark:bg-red-950/50 rounded-xl shrink-0">
+                <Trash2 className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="font-serif font-bold text-base text-zinc-900 dark:text-zinc-100">
+                  Confirm Project Deletion
+                </h3>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                  Are you sure you want to permanently delete this project? This will remove it from the showcase archive.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-3 bg-zinc-50 dark:bg-zinc-800/60 rounded-xl border border-zinc-200 dark:border-zinc-700">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block mb-1">
+                PROJECT TITLE
+              </span>
+              <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 line-clamp-2">
+                {projectToDelete.title}
+              </p>
+            </div>
+
+            {deleteError && (
+              <div className="p-2.5 bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 rounded-lg text-xs font-medium">
+                {deleteError}
+              </div>
+            )}
+
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                disabled={deleteLoading}
+                onClick={() => {
+                  setProjectToDelete(null);
+                  setDeleteError("");
+                }}
+                className="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700 cursor-pointer transition"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={deleteLoading}
+                onClick={confirmDeleteProject}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-semibold cursor-pointer shadow-xs transition flex items-center gap-1.5"
+              >
+                {deleteLoading ? (
+                  <span>Deleting...</span>
+                ) : (
+                  <>
+                    <Trash2 className="h-3.5 w-3.5" />
+                    <span>Delete Project</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Notification Toast */}
+      {deleteSuccess && (
+        <div className="fixed bottom-6 right-6 z-50 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 px-4 py-3 shadow-lg flex items-center gap-2 text-xs font-semibold animate-in fade-in slide-in-from-bottom-2">
+          <Check className="h-4 w-4 text-emerald-400 dark:text-emerald-600" />
+          <span>{deleteSuccess}</span>
         </div>
       )}
     </div>

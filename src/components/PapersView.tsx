@@ -3,7 +3,7 @@ import {
   Search, Filter, BookOpen, Bookmark, BookmarkCheck, Upload, 
   FileText, Download, Calendar, Users, X, UserCheck, 
   Paperclip, Eye, Tag, PlusCircle, CheckCircle2, ChevronRight,
-  ExternalLink, FileSpreadsheet, ArrowLeft, Quote, Copy, Check
+  ExternalLink, FileSpreadsheet, ArrowLeft, Quote, Copy, Check, Trash2
 } from "lucide-react";
 import { Paper, Topic, Researcher, User } from "../types";
 import { api } from "../lib/api";
@@ -64,6 +64,51 @@ export default function PapersView({
   const [uploading, setUploading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+
+  // Paper Deletion Modal States
+  const [paperToDelete, setPaperToDelete] = useState<Paper | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+
+  const canDeletePaper = (p: Paper) => {
+    if (!currentUser) return false;
+    if (currentUser.role === "admin" || currentUser.role === "editor") return true;
+    if (p.uploaderId && p.uploaderId === currentUser.id) return true;
+    if (p.authors && p.authors.some(a => currentUser.name && a.toLowerCase().includes(currentUser.name.toLowerCase()))) return true;
+    return false;
+  };
+
+  const confirmDeletePaper = async () => {
+    if (!paperToDelete) return;
+    setDeleteLoading(true);
+    setDeleteError("");
+    try {
+      await api.deletePaper(paperToDelete.id);
+      try {
+        const stored = localStorage.getItem("cse_archive_custom_papers");
+        if (stored) {
+          const list = JSON.parse(stored);
+          const filtered = list.filter((p: any) => p.id !== paperToDelete.id);
+          localStorage.setItem("cse_archive_custom_papers", JSON.stringify(filtered));
+        }
+      } catch (e) {
+        // ignore
+      }
+      if (selectedPaper?.id === paperToDelete.id) {
+        setSelectedPaper(null);
+        setViewPdfModal(false);
+      }
+      const deletedTitle = paperToDelete.title;
+      setPaperToDelete(null);
+      setSuccessMsg(`Paper "${deletedTitle}" deleted successfully.`);
+      setTimeout(() => setSuccessMsg(""), 4000);
+      onRefreshData();
+    } catch (err: any) {
+      setDeleteError(err.message || "Failed to delete paper.");
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -870,6 +915,20 @@ export default function PapersView({
                         <Bookmark className={`h-3.5 w-3.5 ${isSaved ? "fill-current" : ""}`} />
                       </button>
 
+                      {canDeletePaper(paper) && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setPaperToDelete(paper);
+                            setDeleteError("");
+                          }}
+                          className="p-2 rounded-lg border border-red-200 dark:border-red-900/50 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-all cursor-pointer"
+                          title="Delete Paper"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      )}
+
                     </div>
 
                   </div>
@@ -1016,6 +1075,20 @@ export default function PapersView({
               </span>
 
               <div className="flex items-center gap-2">
+                {canDeletePaper(selectedPaper) && (
+                  <button
+                    onClick={() => {
+                      setPaperToDelete(selectedPaper);
+                      setDeleteError("");
+                    }}
+                    className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 px-3.5 py-2 text-xs font-semibold hover:bg-red-100 transition cursor-pointer flex items-center gap-1.5"
+                    title="Delete this manuscript"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                    <span>Delete</span>
+                  </button>
+                )}
+
                 <button
                   onClick={() => setCitePaper(selectedPaper)}
                   className="rounded-lg border border-zinc-300 dark:border-zinc-600 px-3.5 py-2 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer"
@@ -1127,6 +1200,71 @@ export default function PapersView({
               </pre>
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* Confirmation Modal for Paper Deletion */}
+      {paperToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-900/60 backdrop-blur-xs select-none">
+          <div className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-2xl border border-zinc-200 dark:border-zinc-800 space-y-4">
+            <div className="flex items-start gap-3 text-red-600 dark:text-red-400">
+              <div className="p-2.5 bg-red-100 dark:bg-red-950/50 rounded-xl shrink-0">
+                <Trash2 className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="font-serif font-bold text-base text-zinc-900 dark:text-zinc-100">
+                  Confirm Paper Deletion
+                </h3>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                  Are you sure you want to permanently delete this paper from the archive?
+                </p>
+              </div>
+            </div>
+
+            <div className="p-3 bg-zinc-50 dark:bg-zinc-800/60 rounded-xl border border-zinc-200 dark:border-zinc-700">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block mb-1">
+                PAPER TITLE
+              </span>
+              <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 line-clamp-2">
+                {paperToDelete.title}
+              </p>
+            </div>
+
+            {deleteError && (
+              <div className="p-2.5 bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 rounded-lg text-xs font-medium">
+                {deleteError}
+              </div>
+            )}
+
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                disabled={deleteLoading}
+                onClick={() => {
+                  setPaperToDelete(null);
+                  setDeleteError("");
+                }}
+                className="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700 cursor-pointer transition"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={deleteLoading}
+                onClick={confirmDeletePaper}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-semibold cursor-pointer shadow-xs transition flex items-center gap-1.5"
+              >
+                {deleteLoading ? (
+                  <span>Deleting...</span>
+                ) : (
+                  <>
+                    <Trash2 className="h-3.5 w-3.5" />
+                    <span>Delete Paper</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -1,6 +1,6 @@
 import React from "react";
 import { 
-  GraduationCap, LogOut, ShieldAlert, User, Sun, Moon, PlusCircle,
+  GraduationCap, LogOut, ShieldAlert, User, PlusCircle,
   FileText, BookOpen, Laptop
 } from "lucide-react";
 import { User as UserType, SiteBranding } from "../types";
@@ -36,7 +36,7 @@ export default function Navbar({
 
   const adminMenuVisible = currentUser && (currentUser.role === "admin" || currentUser.role === "editor");
 
-  const siteTitle = branding?.siteName || "Dept of CSE, PUST";
+  const siteTitle = branding?.siteName || "CSE EduDocs";
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-zinc-200/80 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md transition-colors" id="archive-navbar">
@@ -172,22 +172,6 @@ export default function Navbar({
                   Register
                 </button>
               </div>
-            )}
-
-            {onToggleTheme && (
-              <button
-                type="button"
-                onClick={onToggleTheme}
-                className="flex rounded-lg p-2 text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all border border-zinc-200 dark:border-zinc-700 cursor-pointer"
-                title="Toggle Light / Dark Mode"
-                id="navbar-theme-toggle"
-              >
-                {theme === "light" ? (
-                  <Moon className="h-4 w-4" />
-                ) : (
-                  <Sun className="h-4 w-4 text-amber-400" />
-                )}
-              </button>
             )}
 
             {/* Mobile menu toggle */}

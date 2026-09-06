@@ -65,11 +65,11 @@ export default function HomeView({
         <div className="max-w-4xl mx-auto text-center space-y-4">
           
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-zinc-900 dark:text-white font-bold tracking-tight">
-            Research & Thesis Archive
+            Research Papers, Theses & Student Projects Archive
           </h1>
 
           <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto font-sans leading-relaxed">
-            Department of Computer Science & Engineering digital repository for undergraduate & MSc theses, indexed conference proceedings, and faculty journal publications.
+            Department of Computer Science & Engineering digital archive for research publications, undergraduate & MSc theses, and innovative student engineering projects.
           </p>
 
           {/* Unified Keyword Search Form */}

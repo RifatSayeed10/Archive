@@ -78,6 +78,7 @@ interface AuthenticatedRequest extends Request {
   user?: {
     id: string;
     email: string;
+    name?: string;
     role: "student" | "teacher" | "editor" | "admin" | "user";
   };
 }
@@ -815,13 +816,36 @@ app.put("/api/papers/:id", requireAdminOrEditor as unknown as express.RequestHan
   res.json(paper);
 });
 
-app.delete("/api/papers/:id", requireAdminOrEditor as unknown as express.RequestHandler, (req: Request, res: Response) => {
+app.delete("/api/papers/:id", requireAuth as unknown as express.RequestHandler, (req: AuthenticatedRequest, res: Response) => {
   const { id } = req.params;
   const papers = dbConnection.getPapers();
   const index = papers.findIndex(p => p.id === id);
   if (index === -1) {
     return res.status(404).json({ error: "Paper not found" });
   }
+  const paper = papers[index];
+  const isElevated = req.user && (req.user.role === "admin" || req.user.role === "editor");
+  const isAuthor = req.user && (
+    paper.uploaderId === req.user.id ||
+    (paper.authors && paper.authors.some(a => req.user?.name && a.toLowerCase().includes(req.user.name.toLowerCase())))
+  );
+
+  if (!isElevated && !isAuthor) {
+    return res.status(403).json({ error: "Permission denied: Administrator or paper author privilege required to delete this paper" });
+  }
+
+  // Safe disk cleanup if paper has an uploaded file in /uploads
+  if (paper.fileUrl && paper.fileUrl.startsWith("/uploads/")) {
+    try {
+      const filePath = path.join(process.cwd(), paper.fileUrl);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    } catch (e) {
+      console.warn("Could not delete physical paper file:", e);
+    }
+  }
+
   papers.splice(index, 1);
   dbConnection.save();
   res.json({ success: true, message: "Paper deleted successfully" });
