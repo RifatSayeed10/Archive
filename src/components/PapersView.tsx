@@ -75,6 +75,7 @@ export default function PapersView({
     if (currentUser.role === "admin" || currentUser.role === "editor") return true;
     if (p.uploaderId && p.uploaderId === currentUser.id) return true;
     if (p.authors && p.authors.some(a => currentUser.name && a.toLowerCase().includes(currentUser.name.toLowerCase()))) return true;
+    if (p.authors && p.authors.some(a => currentUser.email && a.toLowerCase().includes(currentUser.email.split("@")[0].toLowerCase()))) return true;
     return false;
   };
 
@@ -85,12 +86,14 @@ export default function PapersView({
     try {
       await api.deletePaper(paperToDelete.id);
       try {
-        const stored = localStorage.getItem("cse_archive_custom_papers");
-        if (stored) {
-          const list = JSON.parse(stored);
-          const filtered = list.filter((p: any) => p.id !== paperToDelete.id);
-          localStorage.setItem("cse_archive_custom_papers", JSON.stringify(filtered));
-        }
+        ["cse_archive_custom_papers", "research_archive_custom_papers"].forEach(key => {
+          const stored = localStorage.getItem(key);
+          if (stored) {
+            const list = JSON.parse(stored);
+            const filtered = list.filter((p: any) => p.id !== paperToDelete.id && p.title !== paperToDelete.title);
+            localStorage.setItem(key, JSON.stringify(filtered));
+          }
+        });
       } catch (e) {
         // ignore
       }

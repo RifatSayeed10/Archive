@@ -32,6 +32,8 @@ export default function App() {
   // Sync custom papers created by the user from localStorage into the server DB
   const syncCustomPapers = async (serverPapers: Paper[]) => {
     try {
+      const token = localStorage.getItem("research_archive_token");
+      if (!token) return;
       const localPapersStr = localStorage.getItem("research_archive_custom_papers");
       if (!localPapersStr) return;
       const localPapers: Partial<Paper>[] = JSON.parse(localPapersStr);

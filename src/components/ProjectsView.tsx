@@ -286,7 +286,10 @@ export default function ProjectsView({ currentUser, onNavigateToAuth }: Projects
   const isUserAuthorizedToEdit = (proj: Project) => {
     if (!currentUser) return false;
     if (currentUser.role === "admin" || currentUser.role === "editor") return true;
-    return proj.createdBy === currentUser.id;
+    if (proj.createdBy && proj.createdBy === currentUser.id) return true;
+    if (proj.teamMembers && proj.teamMembers.some(m => currentUser.name && m.toLowerCase().includes(currentUser.name.toLowerCase()))) return true;
+    if (proj.teamMembers && proj.teamMembers.some(m => currentUser.email && m.toLowerCase().includes(currentUser.email.split("@")[0].toLowerCase()))) return true;
+    return false;
   };
 
   // Batches list for filter

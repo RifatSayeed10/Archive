@@ -160,12 +160,14 @@ export default function AdminView({
       if (deleteTarget.type === "paper") {
         await api.deletePaper(deleteTarget.id);
         try {
-          const stored = localStorage.getItem("cse_archive_custom_papers");
-          if (stored) {
-            const list = JSON.parse(stored);
-            const filtered = list.filter((p: any) => p.id !== deleteTarget.id);
-            localStorage.setItem("cse_archive_custom_papers", JSON.stringify(filtered));
-          }
+          ["cse_archive_custom_papers", "research_archive_custom_papers"].forEach(key => {
+            const stored = localStorage.getItem(key);
+            if (stored) {
+              const list = JSON.parse(stored);
+              const filtered = list.filter((p: any) => p.id !== deleteTarget.id && p.title !== deleteTarget.title);
+              localStorage.setItem(key, JSON.stringify(filtered));
+            }
+          });
         } catch (e) {
           // ignore
         }

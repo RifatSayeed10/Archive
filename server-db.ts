@@ -547,6 +547,9 @@ class DBConnection {
         this.state.users.forEach(u => {
           if (u.isBlocked === undefined) u.isBlocked = false;
           if (!u.downloads) u.downloads = [];
+          if (u.email && u.email.toLowerCase() === "rifatahmed21095@gmail.com") {
+            u.role = "admin";
+          }
         });
 
         // Clean paper models for prices/downloadsCount/coverImage
@@ -711,13 +714,19 @@ class DBConnection {
 
   createToken(user: User): string {
     const header = Buffer.from(JSON.stringify({ alg: "HS256", typ: "JWT" })).toString("base64url");
-    const payload = Buffer.from(JSON.stringify({ id: user.id, email: user.email, role: user.role, exp: Date.now() + 86400000 })).toString("base64url");
+    const payload = Buffer.from(JSON.stringify({ 
+      id: user.id, 
+      email: user.email, 
+      name: user.name || "",
+      role: user.role, 
+      exp: Date.now() + 86400000 
+    })).toString("base64url");
     const tokenInput = `${header}.${payload}`;
     const signature = crypto.createHmac("sha256", config.JWT_SECRET).update(tokenInput).digest("base64url");
     return `${tokenInput}.${signature}`;
   }
 
-  verifyToken(token: string): { id: string; email: string; role: 'student' | 'teacher' | 'editor' | 'admin' | 'user' } | null {
+  verifyToken(token: string): { id: string; email: string; name?: string; role: 'student' | 'teacher' | 'editor' | 'admin' | 'user' } | null {
     try {
       const parts = token.split(".");
       if (parts.length !== 3) return null;

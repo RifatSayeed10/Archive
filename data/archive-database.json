@@ -57,43 +57,20 @@
       "downloads": [],
       "createdAt": "2026-09-06T05:21:27.972Z",
       "passwordHash": "94a9677d45fb5528e23c64adda76a39c4401ab507b3a6ab8fe67e30d1bbf70bfe63170339b0cf40ed5b968e9741f96ba5c2ed0c95874b8020a120c604361f00c"
+    },
+    {
+      "id": "usr_enmrewxpe",
+      "email": "rifatahmed21095@gmail.com",
+      "name": "Rifat",
+      "role": "admin",
+      "bookmarks": [],
+      "isBlocked": false,
+      "downloads": [],
+      "createdAt": "2026-09-06T05:44:05.666Z",
+      "passwordHash": "f85217104eef6903f5891b54db4e46d6dbcf303cc8b8584e59070db47584ec9dfaf3d4815bcc59dbff2da05734f89db18c41aeed86b3de9bd170178bcd64a814"
     }
   ],
   "papers": [
-    {
-      "id": "paper_cse_1",
-      "title": "BanglaBERT-OCR: Transformer-based Document Text Extraction from Degraded Scanned Bengali Archives",
-      "authors": [
-        "Tanvir Ahmed (Roll: 1904012)",
-        "Sumaiya Rahman (Roll: 1904045)"
-      ],
-      "supervisor": "Dr. Farhana Sarker",
-      "coSupervisor": "Prof. Dr. Mohammad Tariqul Islam",
-      "publicationType": "Undergraduate Thesis",
-      "year": 2026,
-      "pages": 64,
-      "views": 890,
-      "likes": 142,
-      "downloadsCount": 88,
-      "categories": [
-        "Computer Vision & Bangla NLP",
-        "Artificial Intelligence & ML"
-      ],
-      "keywords": [
-        "Bangla OCR",
-        "Transformer",
-        "BERT",
-        "Document Analysis",
-        "Bengali NLP",
-        "Scanned Documents"
-      ],
-      "summary": "This undergraduate thesis proposes a custom vision-language transformer architecture specifically fine-tuned for extracting degraded, low-resolution Bengali historical and administrative manuscripts. Achieves 94.2% character accuracy on complex conjunctive characters (Juktakkhor).",
-      "fileUrl": "/sample-papers/banglabert_ocr_thesis.pdf",
-      "coverImage": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&auto=format&fit=crop&q=80",
-      "status": "Active",
-      "price": 0,
-      "createdAt": "2026-02-15T09:00:00.000Z"
-    },
     {
       "id": "paper_cse_2",
       "title": "Lightweight Edge-AI Model for Real-Time Traffic Congestion Prediction in Dhaka Megacity",
@@ -264,7 +241,7 @@
       "id": "topic_ai_ml",
       "name": "Artificial Intelligence & ML",
       "description": "Deep learning, NLP, computer vision, reinforcement learning, and LLM fine-tuning.",
-      "paperCount": 4
+      "paperCount": 3
     },
     {
       "id": "topic_se_systems",
@@ -282,7 +259,7 @@
       "id": "topic_cv_nlp",
       "name": "Computer Vision & Bangla NLP",
       "description": "Bengali natural language understanding, OCR document scanning, transformer models, and video analytics.",
-      "paperCount": 2
+      "paperCount": 1
     },
     {
       "id": "topic_data_bio",
@@ -427,75 +404,6 @@
       "createdAt": "2025-10-12T10:00:00.000Z"
     },
     {
-      "id": "proj_exam_portal",
-      "title": "PUST Automated Exam Hall Seat Plan & Result Management Portal",
-      "category": "Software",
-      "teamMembers": [
-        "Sakib Al Hasan (Roll: 2004005)",
-        "Mehedi Hasan (Roll: 2004014)"
-      ],
-      "supervisor": "Dr. Farhana Sarker",
-      "batch": "Batch 20 (Session 2020-21)",
-      "academicYear": 2025,
-      "description": "Comprehensive departmental web application for automating term-final examination seat allotment, preventing adjacent student roll collusion across departments, generating invigilator schedules, and calculating tabulated CGPA grade sheets with secure administrative digital approvals.",
-      "techStack": [
-        "React 19",
-        "TypeScript",
-        "Node.js",
-        "Express",
-        "PostgreSQL",
-        "Tailwind CSS",
-        "PDF Generation",
-        "Docker"
-      ],
-      "coverImage": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=80",
-      "demoImages": [
-        "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80"
-      ],
-      "githubUrl": "https://github.com/pust-cse/exam-automation-portal",
-      "liveDemoUrl": "https://exam-portal.pust.ac.bd",
-      "status": "Completed",
-      "likes": 112,
-      "views": 1450,
-      "featured": true,
-      "createdAt": "2025-07-20T14:30:00.000Z"
-    },
-    {
-      "id": "proj_gas_rover",
-      "title": "Autonomous Hazardous Gas Detection & Surveillance Inspection Rover",
-      "category": "Hardware",
-      "teamMembers": [
-        "Fahim Faisal (Roll: 1904031)",
-        "Zahin Mahmud (Roll: 1904040)"
-      ],
-      "supervisor": "Prof. Dr. Kamrul Hasan",
-      "batch": "Batch 19 (Session 2019-20)",
-      "academicYear": 2024,
-      "description": "Hardware robotics prototype designed for industrial gas leak inspection, chemical storage monitoring, and hazardous zone reconnaissance. Features a 4WD tracked chassis with differential steering, multi-gas sensor matrix (Methane MQ-4, Carbon Monoxide MQ-7, LPG MQ-2, Hydrogen MQ-8), obstacle avoidance sonar, and real-time live video streaming over encrypted Wi-Fi link to a central ground station.",
-      "techStack": [
-        "STM32 Nucleo",
-        "Raspberry Pi 4",
-        "MQ-2/MQ-7 Gas Sensors",
-        "Ultrasonic HC-SR04",
-        "L298N Dual H-Bridge",
-        "Python OpenCV",
-        "LiPo 3S Battery"
-      ],
-      "coverImage": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&auto=format&fit=crop&q=80",
-      "demoImages": [
-        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&auto=format&fit=crop&q=80",
-        "https://images.unsplash.com/photo-1563770660941-20978e870e26?w=800&auto=format&fit=crop&q=80"
-      ],
-      "githubUrl": "https://github.com/pust-cse/gas-surveillance-rover",
-      "status": "Completed",
-      "likes": 96,
-      "views": 1120,
-      "featured": true,
-      "createdAt": "2024-11-15T09:15:00.000Z"
-    },
-    {
       "id": "proj_sign_interpreter",
       "title": "Bengali Sign Language Interpreter with Embedded Vision & Audio Feedback",
       "category": "Hybrid / IoT",
@@ -562,5 +470,6 @@
       "featured": true,
       "createdAt": "2026-02-18T16:45:00.000Z"
     }
-  ]
+  ],
+  "chats": []
 }
